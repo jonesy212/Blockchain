@@ -145,7 +145,7 @@ class Blockchain(object):
 
         hash_value = hashlib.sha256(guess).hexdigest()
 
-        return hash_value[:3] == '000'
+        return hash_value[:9] == '000000000'
         # return True or False
 
 
@@ -206,6 +206,14 @@ def full_chain():
         'chain': blockchain.chain
     }
     return jsonify(response), 200
+
+@app.route('/last_block', methods=['GET'])
+def last_block():
+    response = {
+        'last_block': blockchain.last_block
+    }
+    return jsonify(response), 200
+
 
 @app.route('/transaction/new', methods=['POST'])
 def new_transaction():
